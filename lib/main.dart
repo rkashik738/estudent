@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.orange,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const WidgetTree(),
     );
