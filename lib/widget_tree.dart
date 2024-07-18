@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:login/auth.dart';
-import 'package:login/pages/home_page.dart';
+import 'package:login/pages/home_page/home_page.dart';
 import 'package:login/pages/login_reg.dart';
+
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});

@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:login/auth.dart';
+import 'package:login/constant/text_string.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,6 +22,11 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controllerPassword = TextEditingController();
 
   Future<void> signInWithEmailAndPassword() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(child: CircularProgressIndicator());
+        });
     try {
       await Auth().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
@@ -27,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
         errorMassage = e.message;
       });
     }
+    Navigator.of(context).pop();
   }
 
   Future<void> createUserWithEmailAndPassword() async {
@@ -40,8 +49,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Widget _loginImage() {
+    return const Image(image: AssetImage('assets/images/login_image.png'));
+  }
+
   Widget _title() {
-    return const Text('Firebase Auth With Rk');
+    return const Text('eStudent');
   }
 
   Widget _entryField(
@@ -50,7 +63,40 @@ class _LoginPageState extends State<LoginPage> {
   ) {
     return TextField(
       controller: controller,
-      decoration: InputDecoration(labelText: title),
+      decoration: InputDecoration(
+        labelText: title,
+        border: const OutlineInputBorder(),
+      ),
+    );
+  }
+
+  Widget _entryFieldp(
+    String title,
+    TextEditingController controller,
+  ) {
+    return TextField(
+      obscureText: true,
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: title,
+        border: const OutlineInputBorder(),
+      ),
+    );
+  }
+
+  Widget _loginText1() {
+    return const Text(
+      aLoginText1,
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget _loginText2() {
+    return const Text(
+      aLoginText2,
+      style: TextStyle(
+        fontSize: 20,
+      ),
     );
   }
 
@@ -58,11 +104,18 @@ class _LoginPageState extends State<LoginPage> {
   //   return Text(errorMassage = ''? '' : 'Humm ? $errorMassage');
   // }
 
-  Widget _submitButton() {
-    return ElevatedButton(
-      onPressed:
-          isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-      child: Text(isLogin ? 'Login' : 'Register'),
+  Widget _loginButton() {
+    return SizedBox(
+      height: 50,
+      width: 150,
+      child: ElevatedButton(
+        onPressed: signInWithEmailAndPassword,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+        ),
+        child: const Text('Login'),
+      ),
     );
   }
 
@@ -73,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
           isLogin = !isLogin;
         });
       },
-      child: Text(isLogin ? 'Regster istade' : 'Login Instade'),
+      child: Text(isLogin ? '' : ''),
     );
   }
 
@@ -86,15 +139,32 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children:<Widget> [
-            _entryField('email', _controllerEmail),
-            _entryField('password', _controllerPassword),
-            _submitButton(),
-            _loginOrRegsterButton()
+          children: <Widget>[
+            _loginImage(),
+            _loginText1(),
+            const SizedBox(
+              height: 10,
+            ),
+            _loginText2(),
+            const SizedBox(
+              height: 20,
+            ),
+            _entryField(
+              'email',
+              _controllerEmail,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            _entryFieldp('password', _controllerPassword),
+            const SizedBox(
+              height: 20,
+            ),
+            _loginButton(),
           ],
         ),
       ),
