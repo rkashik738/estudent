@@ -1,18 +1,26 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:login/auth.dart';
+
 import 'package:login/pages/drawer/drawer.dart';
+
+import 'package:login/pages/home_page/main_body.dart';
 import 'package:login/pages/home_page/slider.dart';
 
-import 'card_icon.dart';
-import 'main_body_card.dart';
-import 'topbar_menu.dart';
+import 'home_page_header.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final User? user = Auth().currentUser;
+
   Future<void> signOut() async {
     await Auth().signOut();
   }
@@ -28,10 +36,11 @@ class HomePage extends StatelessWidget {
   Widget _signOutButton() {
     return IconButton(
       onPressed: signOut,
-      icon: Icon(Icons.exit_to_app),
+      icon: const Icon(Icons.exit_to_app),
     );
   }
 
+  //chart
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,111 +50,19 @@ class HomePage extends StatelessWidget {
           _signOutButton(),
         ],
       ),
-      body: ListView(
+      body: const Column(
         children: [
-          const Expanded(
-            child: Row(
-              children: [
-                ////Apply Leave\\\\
-                TopbarMenu(
-                  icones: FontAwesomeIcons.arrowUpFromBracket,
-                  label: 'Apply Leave',
-                ),
-                ////Pay Fees\\\\
-                TopbarMenu(
-                  icones: FontAwesomeIcons.dollarSign,
-                  label: 'Pay Fees',
-                ),
-                ////Meet Teacher\\\\
-                TopbarMenu(
-                  icones: FontAwesomeIcons.peopleArrows,
-                  label: 'Meet Teacher',
-                ),
-              ],
-            ),
+          HomePageHeader(),
+          SizedBox(
+            height: 15,
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          ////top bar Menu End///
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50),
-                topRight: Radius.circular(50),
-              ),
-            ),
-            height: 680,
-            width: double.infinity,
-          
-            /// box deco end
-            child: const Column(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: MainBodyCard(
-                          colour: Colors.pink,
-                          cardChild: CardIcons(
-                            icon: FontAwesomeIcons.pen,
-                            label: 'Assignment',
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: MainBodyCard(
-                            colour: Colors.blue,
-                            cardChild: CardIcons(
-                              icon: FontAwesomeIcons.noteSticky,
-                              label: 'Note',
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: MySlider(),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: MainBodyCard(
-                            colour: Colors.deepPurple,
-                            cardChild: CardIcons(
-                              icon: FontAwesomeIcons.calendarDays,
-                              label: 'School Calender',
-                            )),
-                      ),
-                      Expanded(
-                        child: MainBodyCard(
-                            colour: Colors.deepOrange,
-                            cardChild: CardIcons(
-                              icon: FontAwesomeIcons.arrowsRotate,
-                              label: 'Weekly Update',
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          MySlider(),
+          MainBodyWidgets(),
         ],
       ),
       drawer: const DrawerPage(),
-      bottomNavigationBar: NavigationBar(
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(
-              icon: Icon(Icons.email_outlined), label: 'Massage'),
-          NavigationDestination(
-              icon: Icon(FontAwesomeIcons.chartColumn), label: 'Result'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
+
+      //
     );
   }
 }

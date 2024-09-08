@@ -15,6 +15,7 @@ class _WidgetTreeState extends State<WidgetTree> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
+      
         stream: Auth().authStateChange,
         builder: (context, snapshot) {
           if (snapshot.hasData) {

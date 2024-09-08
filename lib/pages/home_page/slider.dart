@@ -31,7 +31,7 @@ class _MySliderState extends State<MySlider> {
     return Column(
       children: [
         SizedBox(
-          height: 225,
+          height: 170,
           child: PageView.builder(
             controller: pageController,
             itemBuilder: (_, index) {
@@ -50,14 +50,14 @@ class _MySliderState extends State<MySlider> {
                     children: [
                       Icon(
                         Icons.menu_book_outlined,
-                        size: 70,
+                        size: 40,
                       ),
                       Text(
                         aPrincipalText,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          
                         ),
                       ),
                       SizedBox(

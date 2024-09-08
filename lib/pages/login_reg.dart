@@ -140,32 +140,34 @@ class _LoginPageState extends State<LoginPage> {
         height: double.infinity,
         width: double.infinity,
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            _loginImage(),
-            _loginText1(),
-            const SizedBox(
-              height: 10,
-            ),
-            _loginText2(),
-            const SizedBox(
-              height: 20,
-            ),
-            _entryField(
-              'email',
-              _controllerEmail,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            _entryFieldp('password', _controllerPassword),
-            const SizedBox(
-              height: 20,
-            ),
-            _loginButton(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _loginImage(),
+              _loginText1(),
+              const SizedBox(
+                height: 10,
+              ),
+              _loginText2(),
+              const SizedBox(
+                height: 20,
+              ),
+              _entryField(
+                'email',
+                _controllerEmail,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              _entryFieldp('password', _controllerPassword),
+              const SizedBox(
+                height: 20,
+              ),
+              _loginButton(),
+            ],
+          ),
         ),
       ),
     );
